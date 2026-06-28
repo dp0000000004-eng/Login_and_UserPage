@@ -18,7 +18,7 @@ def index(request):
 		return redirect('index')
 	user_products = User.objects.all()
 	return render(request, 'main/index.html', context={
-		'user_products':user_products
+		'user_products':user_products, 
 
 	})
 
@@ -28,11 +28,11 @@ def register_request(request):
 		if form.is_valid():
 			user = form.save()
 			login(request, user)
-			messages.success(request, "Registration successful." )
+			messages = messages.success(request, "Registration successful." )
 			return redirect("index")
 		messages.error(request, "Unsuccessful registration. Invalid information.")
 	form = NewUserForm()
-	return render(request=request, template_name="main/register.html", context={"register_form":form})
+	return render(request=request, template_name="main/register.html", context={"register_form":form, "messages":messages})
 
 def login_request(request):
 	if request.method == "POST":
